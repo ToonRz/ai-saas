@@ -14,7 +14,7 @@ $user = currentUser();
 </head>
 <body class="bg-light">
 <?php if (!$hideNav): ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-primary-custom shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold" href="index.php">AI SaaS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">

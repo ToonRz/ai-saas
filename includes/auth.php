@@ -21,7 +21,7 @@ function currentUser(): ?array
     }
 
     $stmt = getDb()->prepare(
-        'SELECT u.id, u.name, u.email, u.role, u.is_banned, u.subscription_id,
+        'SELECT u.id, u.name, u.email, u.role, u.is_banned, u.subscription_id, u.subscription_active,
                 s.name AS plan_name, s.daily_limit, s.price
          FROM users u
          JOIN subscriptions s ON s.id = u.subscription_id
@@ -93,8 +93,16 @@ function getTodayUsageCount(int $userId): int
     return (int) $stmt->fetch()['cnt'];
 }
 
+function isSubscriptionActive(array $user): bool
+{
+    return (int) $user['subscription_active'] === 1;
+}
+
 function canMakeAiRequest(array $user): bool
 {
+    if (!isSubscriptionActive($user)) {
+        return false;
+    }
     return getTodayUsageCount((int) $user['id']) < (int) $user['daily_limit'];
 }
 

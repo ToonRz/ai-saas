@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = getDb()->prepare(
-                'INSERT INTO users (name, email, password_hash, subscription_id) VALUES (?, ?, ?, 1)'
+                'INSERT INTO users (name, email, password_hash, subscription_id, subscription_active) VALUES (?, ?, ?, 4, 0)'
             );
             $stmt->execute([$name, $email, $hash]);
             loginUser((int) getDb()->lastInsertId());
